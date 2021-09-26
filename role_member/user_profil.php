@@ -220,13 +220,14 @@ $kodeUservl = $huruf . sprintf("%03s", substr(rand(), 6));
                                                                                         <div class="table-responsive">
                                                                                             <table class="table">
                                                                                                 <?php
-                                                                                                $queryuser = mysqli_query($konek, "SELECT*FROM tbl_user where user_id='$user_id'");
+                                                                                                $queryuser = mysqli_query($konek, "SELECT user_notelp,user_email, user_nmlengkap , tbl_user.uservl_status as status, tbl_user_vl.uservl_status as status_data, tbl_user.user_id as user_ids FROM tbl_user LEFT JOIN tbl_user_vl ON tbl_user.user_id = tbl_user_vl.user_id where user_email='$session_useremail'");
                                                                                                 if ($queryuser == false) {
                                                                                                     die("Terjadi Kesalahan : " . mysqli_error($konek));
                                                                                                 }
                                                                                                 while ($user = mysqli_fetch_assoc($queryuser)) {
-                                                                                                    $user_id = $user['user_id'];
-                                                                                                    $uservl_status = $user['uservl_status'];
+                                                                                                    $user_id = $user['user_ids'];
+                                                                                                    $uservl_status = $user['status'];
+                                                                                                    $haveVerif = $user['status_data'];
                                                                                                 ?>
 
                                                                                                     <tbody>
@@ -276,7 +277,7 @@ $kodeUservl = $huruf . sprintf("%03s", substr(rand(), 6));
                                                         </div>
                                                         <div class="card">
                                                             <?php
-                                                            if ($uservl_status == 0) {
+                                                            if (!isset($haveVerif)) {
                                                                 echo '<div class="card-header">
                                                                             <div class="row align-items-center">
                                                                                 <div class="col-lg-10 col-sm-12 col-6">

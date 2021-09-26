@@ -251,19 +251,19 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
                                                             </div>
                                                             <div class="card-block">
                                                                 <h4 class="sub-title">Date & Time</h4>
-                                                                <div class="form-group row">
+                                                                <div class="form-group row input-daterange">
                                                                     <label class="col-sm-2 col-form-label">Choose Date</label>
                                                                     <div class="col-sm-5">
-                                                                        <div class="input-daterange input-group" id="datepicker11">
-                                                                            <input type="text" class="input-sm form-control" name="event_date_start" id="event_date_start" placeholder=" Start">
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="input-sm form-control" name="event_date_start" id="event_date_start" placeholder=" Start" autocomplete="off">
                                                                             <span class="input-group-addon ">
                                                                                 <span class="fa fa-calendar"></span>
                                                                             </span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-5">
-                                                                        <div class="input-daterange input-group" id="datepicker12">
-                                                                            <input type="text" class="input-sm form-control" name="event_date_finish" id="event_date_finish" placeholder=" Finish">
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="input-sm form-control" name="event_date_finish" id="event_date_finish" placeholder=" Finish" autocomplete="off">
                                                                             <span class="input-group-addon ">
                                                                                 <span class="fa fa-calendar"></span>
                                                                             </span>
@@ -274,7 +274,7 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
                                                                     <label class="col-sm-2 col-form-label">Choose Time</label>
                                                                     <div class="col-sm-5">
                                                                         <div class='input-group date' id='datetimepicker31'>
-                                                                            <input type='time-local' class="form-control" name="event_time_start" id="event_time_start" placeholder=" Start">
+                                                                            <input type='time-local' class="form-control" name="event_time_start" id="event_time_start" placeholder=" Start" autocomplete="off">
                                                                             <span class="input-group-addon ">
                                                                                 <span class="fa fa-clock-o"></span>
                                                                             </span>
@@ -282,7 +282,7 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
                                                                     </div>
                                                                     <div class="col-sm-5">
                                                                         <div class='input-group date' id='datetimepicker32'>
-                                                                            <input type='text' class="form-control" name="event_time_finish" id="event_time_start" placeholder=" Finish">
+                                                                            <input type='text' class="form-control" name="event_time_finish" id="event_time_start" placeholder=" Finish" autocomplete="off">
                                                                             <span class="input-group-addon ">
                                                                                 <span class="fa fa-clock-o"></span>
                                                                             </span>
@@ -338,9 +338,13 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
     <script>
         CKEDITOR.replace('event_description');
         CKEDITOR.replace('event_sk');
+
         $(document).ready(function() {
-            $('#event_date_start').datepicker({
-                startDate: new Date()
+            $('.input-daterange').datepicker({
+                startDate: new Date(),
+                format: "dd M yyyy",
+                autoclose: true,
+                todayHighlight: true
             });
         });
     </script>

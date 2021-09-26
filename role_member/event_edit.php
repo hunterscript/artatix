@@ -202,23 +202,33 @@ while ($event_edit = mysqli_fetch_array($queryevent)) {
 
 
 
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Type of Event</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select name="event_jenis" class="form-control">
+                                                                            <option <?php if($event_edit['event_jenis'] == 0) echo 'selected' ?> value="0">Private</option>
+                                                                            <option <?php if($event_edit['event_jenis'] == 1) echo 'selected' ?> value="1">Public</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
                                                                     <input type="hidden" class="form-control" value="NOT ACTIVE" name="event_status" readonly>
 
 
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <h4 class="sub-title">Date & Time</h4>
-                                                                    <div class="form-group row">
+                                                                    <div class="form-group row input-daterange">
                                                                         <label class="col-sm-2 col-form-label">Choose Date</label>
                                                                         <div class="col-sm-5">
                                                                             <div class=" input-group">
-                                                                                <input type="date" class="input-sm form-control" name="event_date_start" placeholder="" value="<?= $event_edit['event_date_start']; ?>">
+                                                                                <input type="text" class="input-sm form-control" name="event_date_start" placeholder="" value="<?php echo $event_edit["event_date_start"]; ?>">
 
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-5">
                                                                             <div class=" input-group">
-                                                                                <input type="date" class="input-sm form-control" name="event_date_finish" placeholder=" Selesai" value="<?= $event_edit['event_date_finish']; ?>">
+                                                                                <input type="text" class="input-sm form-control" name="event_date_finish" placeholder=" Selesai" value="<?php echo $event_edit['event_date_finish']; ?>">
 
                                                                             </div>
                                                                         </div>
@@ -288,6 +298,42 @@ while ($event_edit = mysqli_fetch_array($queryevent)) {
     <script>
         CKEDITOR.replace('event_description');
         CKEDITOR.replace('event_sk');
+
+        function formatToDate($date){
+
+            let slice = $date.split("-");
+            let dd = slice[2];
+            let mm = slice[1];
+            let yyyy = slice[0];
+
+            if(mm == 1) mm = 'Jan';
+            else if(mm == 2) mm = 'Feb';
+            else if(mm == 3) mm = 'Mar';
+            else if(mm == 4) mm = 'Apr';
+            else if(mm == 5) mm = 'May';
+            else if(mm == 6) mm = 'Jun';
+            else if(mm == 7) mm = 'Jul';
+            else if(mm == 8) mm = 'Aug';
+            else if(mm == 9) mm = 'Sep';
+            else if(mm == 10) mm = 'Oct';
+            else if(mm == 11) mm = 'Nov';
+            else if(mm == 12) mm = 'Dec';
+
+            return dd + ' ' + mm + ' ' + yyyy;
+        }
+
+        $(document).ready(function() {
+            let now = formatToDate($('[name=event_date_start]').val());
+            let end = formatToDate($('[name=event_date_finish]').val());
+            console.log(now);
+            $('.input-daterange').datepicker({
+                startDate: new Date(),
+                format: "dd M yyyy",
+            });
+            $('[name=event_date_start]').val(now);
+            $('[name=event_date_finish]').val(end);
+            
+        });
     </script>
     </body>
 

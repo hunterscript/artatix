@@ -644,6 +644,8 @@ $event_id = $_GET["id"];
                             let total = $('#tkt_price').val() - $('#tkt_fee').val();
                             $("#tkt_total").val(total);
                         });
+                        
+                        
                     </script>
 
        </script>

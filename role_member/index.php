@@ -88,41 +88,66 @@ error_reporting(0)
                                                 }
                                             }
 
-                                            $status = mysqli_query($konek, "SELECT*FROM tbl_user where user_email='$session_useremail'");
+                                            $status = mysqli_query($konek, "SELECT tbl_user.uservl_status as status, tbl_user_vl.uservl_status as status_data, tbl_user.user_id as user_ids FROM tbl_user LEFT JOIN tbl_user_vl ON tbl_user.user_id = tbl_user_vl.user_id where user_email='$session_useremail'");
                                             if ($status == false) {
 
                                                 die("Terjadi Kesalahan : " . mysqli_error($konek));
                                             }
                                             while ($user = mysqli_fetch_assoc($status)) {
 
-                                                $stat =  $user['uservl_status'];
-
+                                                $stat = $user['status'];
                                                 if ($stat == 0) {
-                                                    echo ' <div class="page-header">
+                                                    if($user['status_data'] == 'Need Verification'){
+                                                        echo ' <div class="page-header">
 
-                                                        <div class="row align-items-end">
-                                                            <div class="col-lg-12">
-                                                                <div class="card text-black">
-                                                                    <div class="card-block primary">
-                                                                        <div class="row align-items-left">
-                                                                            <div class="col-lg-9">
-                                                                                <div class="page-header-title ">
-                                                                                    <div class="ion-alert fa-lg text-primary">
+                                                            <div class="row align-items-end">
+                                                                <div class="col-lg-12">
+                                                                    <div class="card text-black">
+                                                                        <div class="card-block primary">
+                                                                            <div class="row align-items-left">
+                                                                                <div class="col-lg-9">
+                                                                                    <div class="page-header-title ">
+                                                                                        <div class="ion-alert fa-lg text-primary">
 
-                                                                                        &nbsp;<Span>Kamu belum melakukan verifikasi akun</SPAN>
+                                                                                            &nbsp;<Span>Menunggu Di Verifikasi Oleh Admin</SPAN>
 
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="col-lg-2">
-                                                                                <a href="user_profil.php?id=' . $user["user_id"] . '"><button class="btn  BTN-SM btn-primary">Verifikasi Sekarang</button></a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    ';
+                                                        ';
+                                                    }else{
+                                                        echo ' <div class="page-header">
+
+                                                            <div class="row align-items-end">
+                                                                <div class="col-lg-12">
+                                                                    <div class="card text-black">
+                                                                        <div class="card-block primary">
+                                                                            <div class="row align-items-left">
+                                                                                <div class="col-lg-9">
+                                                                                    <div class="page-header-title ">
+                                                                                        <div class="ion-alert fa-lg text-primary">
+
+                                                                                            &nbsp;<Span>Kamu belum melakukan verifikasi akun</SPAN>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <a href="user_profil.php?id=' . $user["user_ids"] . '"><button class="btn  BTN-SM btn-primary">Verifikasi Sekarang</button></a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ';    
+                                                    }
+                                                    
                                                 } else {
                                                     echo ' <div class="page-header">
 
