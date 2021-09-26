@@ -1,0 +1,2 @@
+admin : admin@artatix.com / admin
+member : harris@gmail.com / member
