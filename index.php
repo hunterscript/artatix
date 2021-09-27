@@ -151,9 +151,14 @@ include "koneksi/koneksi.php";
                 <div class="tab-panels">
                     <section id="marzen" class="tab-panel">
                         <div class="row">
-                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event where event_jenis='1'");
+                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1");
+                            $norepeat = [];
                             while ($ambilevent = mysqli_fetch_array($result)) {
-                                $event_picture = $ambilevent['event_picture']; ?>
+                                $event_picture = $ambilevent['event_picture'];
+                                $now = DateTime::createFromFormat(('Y-m-d'),date('Y-m-d'),new DateTimeZone('UTC'));  
+                                if(strtotime($ambilevent['tkt_date_finish']) > $now->getTimestamp() && !in_array($ambilevent['event_id'],$norepeat)){
+                                    array_push($norepeat,$ambilevent['event_id']);
+                                ?>
 
                             <div class="col-lg-3">
                                 <a href="page_event_detail.php?id=<?php echo $ambilevent['event_id']; ?>">
@@ -177,14 +182,78 @@ include "koneksi/koneksi.php";
                             </div>
 
 
-                        <?php } ?>
+                        <?php }} ?>
 
                     </section>
                     <section id="rauchbier" class="tab-panel">
+                        <div class="row">
+                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1 AND event_category='Sport'");
+                            $norepeat = [];
+                            while ($ambilevent = mysqli_fetch_array($result)) {
+                                $event_picture = $ambilevent['event_picture'];
+                                $now = DateTime::createFromFormat(('Y-m-d'),date('Y-m-d'),new DateTimeZone('UTC'));  
+                                if(strtotime($ambilevent['tkt_date_finish']) > $now->getTimestamp() && !in_array($ambilevent['event_id'],$norepeat)){
+                                    array_push($norepeat,$ambilevent['event_id']);
+                                ?>
 
+                            <div class="col-lg-3">
+                                <a href="page_event_detail.php?id=<?php echo $ambilevent['event_id']; ?>">
+                                    <div class="card-image">
+                                        <img class="page_event_detail.php" src="img/event_banner/<?php echo $ambilevent['event_picture']; ?>" alt="">
+                                    </div>
+                                    <div class="single-property">
+                                        <span class="card-content-span"><?php echo $ambilevent['event_category']; ?></span>
+                                        <h4 class="card-content-h4"><?php echo $ambilevent['event_name']; ?></h4>
+
+                                        <p class="card-content-p-location"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $ambilevent['event_location']; ?></p>
+
+                                        <hr>
+                                        <div class="card-content-more_event">
+                                            <a href="page_event_detail.php?id=<?php echo $ambilevent['event_id']; ?>" class="genric-btn btn-sm primary circle">
+                                                Beli Tiket
+                                            </a>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+
+                        <?php }} ?>
                     </section>
                     <section id="dunkles" class="tab-panel">
+                        <div class="row">
+                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1 AND event_category='Music'");
+                            $norepeat = [];
+                            while ($ambilevent = mysqli_fetch_array($result)) {
+                                $event_picture = $ambilevent['event_picture'];
+                                $now = DateTime::createFromFormat(('Y-m-d'),date('Y-m-d'),new DateTimeZone('UTC'));  
+                                if(strtotime($ambilevent['tkt_date_finish']) > $now->getTimestamp() && !in_array($ambilevent['event_id'],$norepeat)){
+                                    array_push($norepeat,$ambilevent['event_id']);
+                                ?>
 
+                            <div class="col-lg-3">
+                                <a href="page_event_detail.php?id=<?php echo $ambilevent['event_id']; ?>">
+                                    <div class="card-image">
+                                        <img class="page_event_detail.php" src="img/event_banner/<?php echo $ambilevent['event_picture']; ?>" alt="">
+                                    </div>
+                                    <div class="single-property">
+                                        <span class="card-content-span"><?php echo $ambilevent['event_category']; ?></span>
+                                        <h4 class="card-content-h4"><?php echo $ambilevent['event_name']; ?></h4>
+
+                                        <p class="card-content-p-location"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $ambilevent['event_location']; ?></p>
+
+                                        <hr>
+                                        <div class="card-content-more_event">
+                                            <a href="page_event_detail.php?id=<?php echo $ambilevent['event_id']; ?>" class="genric-btn btn-sm primary circle">
+                                                Beli Tiket
+                                            </a>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+
+                        <?php }} ?>
                     </section>
                 </div>
 

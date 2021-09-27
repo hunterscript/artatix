@@ -102,6 +102,7 @@
 
 <script src="..\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="..\files\assets\js\script.js"></script>
+<script type="text/javascript" src="..\plugin\accounting.js"></script>
 
 
 
@@ -120,6 +121,9 @@
 </script>
 
 <script type="text/javascript">
+    // $(document).ready(function(){
+
+    // });
     function copy_text() {
         document.getElementById("pilih").select();
         document.execCommand("copy");

@@ -1,15 +1,15 @@
-<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src=<?= $root ?>"js/vendor/jquery-2.2.4.min.js"></script>
 
-<script src="js/vendor/bootstrap.min.js"></script>
-<script src="js/jquery.ajaxchimp.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
-<script src="js/ion.rangeSlider.js"></script>
+<script src=<?= $root ?>"js/vendor/bootstrap.min.js"></script>
+<script src=<?= $root ?>"js/jquery.ajaxchimp.min.js"></script>
+<script src=<?= $root ?>"js/jquery.nice-select.min.js"></script>
+<script src=<?= $root ?>"js/jquery.sticky.js"></script>
+<script src=<?= $root ?>"js/ion.rangeSlider.js"></script>
 
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/main.js"></script>
+<script src=<?= $root ?>"js/jquery.magnific-popup.min.js"></script>
+<script src=<?= $root ?>"js/main.js"></script>
 
-<script src="plugin/owlcarousel/dist/owl.carousel.min.js"></script>
+<script src=<?= $root ?>"plugin/owlcarousel/dist/owl.carousel.min.js"></script>
 
 
 <script>
@@ -45,7 +45,7 @@
     
 </script>
 
-<script src="js/jquery.min.js"></script>
+<script src=<?= $root ?>"js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         window.setTimeout(function() {

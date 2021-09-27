@@ -26,6 +26,7 @@ $event_time_finish  = $_POST["event_time_finish"];
 $event_status       = $_POST["event_status"];
 $event_sk           = $_POST["event_sk"];
 $event_jenis        = $_POST["event_jenis"];
+$link               = strtolower(str_replace(' ','-',$_POST["event_name"]));
 
 if($ukuran > $limit){
   header("location: event_create.php?pesan=gagal_ukuran");		
@@ -49,7 +50,8 @@ if($ukuran > $limit){
                                                               event_time_finish, 
                                                               event_status,
                                                               event_sk,
-                                                              event_jenis)
+                                                              event_jenis,
+                                                              link)
       VALUES('$user_id',
             '$event_id',
             '$event_name',
@@ -63,7 +65,8 @@ if($ukuran > $limit){
             '$event_time_finish',
             '$event_status',
             '$event_sk',
-            '$event_jenis')");
+            '$event_jenis',
+            '$link')");
     if($add){
       header("Location: event.php");
       move_uploaded_file($tmp, '../img/event_banner/'.$event_picture);

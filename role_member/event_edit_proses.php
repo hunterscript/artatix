@@ -16,6 +16,7 @@ $event_time_start   = $_POST["event_time_start"];
 $event_time_finish  = $_POST["event_time_finish"];
 $event_status       = $_POST["event_status"];
 $event_jenis        = $_POST["event_jenis"];
+$event_link        = $_POST["short_link"];
  
 // update data ke database
 $insert = "event_name='$event_name', 
@@ -34,6 +35,7 @@ $insert .= "event_date_finish='$event_date_finish',";
 
 $insert .= "event_time_start='$event_time_start', 
 	 event_date_finish='$event_date_finish',
+	 link='$event_link',
 	 event_jenis='$event_jenis'";
 
 if ($dt = mysqli_query($konek,"UPDATE tbl_event SET ".$insert." WHERE event_id='$event_id'"));

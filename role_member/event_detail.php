@@ -103,6 +103,7 @@ $prdTerbesar = $huruf . sprintf("%03s", $urutan);
                                         die("Terjadi Kesalahan : " . mysqli_error($konek));
                                     }
                                     while ($eventname = mysqli_fetch_array($qry_evntname)) {
+                                        $eventLink = $eventname['link'];
                                     ?>
                                 <div class="pcoded-navigatio-lavel"> <?= $eventname['event_name'] ?></div>
                             <?php } ?>
@@ -271,7 +272,7 @@ $prdTerbesar = $huruf . sprintf("%03s", $urutan);
                                                                 <div class="col-6 col-md-5">
                                                                     <span class="card_detail_admin p-l-20">Link</span><br>
                                                                     <div class='input-group '>
-                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' readonly class="form-control" id="pilih" value="artatix/page_event_detail.php?id=<?= $event_id ?>">
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' readonly class="form-control" id="pilih" value="<?php echo $base_http ?><?php echo (isset($eventLink) ? 'page_event_detail/'.$eventLink : 'page_event_detail.php?id='.$event_id) ?>">
                                                                         <span class="input-group-addon" onclick="copy_text()">
                                                                             <span class="fa fa-copy"></span>
 
@@ -431,7 +432,7 @@ $prdTerbesar = $huruf . sprintf("%03s", $urutan);
                                                                                                             <h6 class=""><i class="fa fa-ticket fa-lg"></i>&nbsp;&nbsp;<b><?= $ticket['tkt_category']; ?></b></h6></i>
                                                                                                             <hr>
                                                                                                             <span class="card-content-span"> - &nbsp; Qty : &nbsp;&nbsp;<?= $ticket['tkt_stock']; ?></span><br>
-                                                                                                            <span class="card-content-span"> - &nbsp; Price : &nbsp;&nbsp;<?= $ticket['tkt_price']; ?></span><br>
+                                                                                                            <span class="card-content-span"> - &nbsp; Price : &nbsp;&nbsp;<?= 'Rp. '.number_format($ticket['tkt_price']); ?></span><br>
                                                                                                             <span class="card-content-span"> - &nbsp; Date : &nbsp;&nbsp;<?= $ticket['tkt_date_start']; ?> - <?= $ticket['tkt_date_finish']; ?> </span><br>
                                                                                                             <span class="card-content-span"> - &nbsp; Description : &nbsp;&nbsp;<?= $ticket['tkt_desc']; ?></span><br>
                                                                                                             <?php if ($ticket['tkt_status'] == 0) {
@@ -477,28 +478,30 @@ $prdTerbesar = $huruf . sprintf("%03s", $urutan);
                                                                                                                 <div class="form-group row">
                                                                                                                     <label class="col-sm-4 col-form-label">Price</label>
                                                                                                                     <div class="col-sm-8">
-                                                                                                                        <input type="text" name="tkt_price" class="form-control" value="<?= $ticket['tkt_price']; ?>">
+                                                                                                                        <input type="text" name="tkt_price" class="form-control" id="currency" onkeyup="onChangecurrency('currency')" value="<?= $ticket['tkt_price']; ?>">
                                                                                                                     </div>
                                                                                                                 </div>
-                                                                                                                <div class="form-group row">
-                                                                                                                    <label class="col-sm-4 col-form-label">Ticket Date</label>
-                                                                                                                    <div class="col-sm-8">
-                                                                                                                        <div class="input-daterange input-group" id="datepicker12">
-                                                                                                                            <input type="text" class="input-sm form-control" name="tkt_date_start" placeholder="" value="<?= $ticket['tkt_date_start']; ?>">
-                                                                                                                            <span class="input-group-addon ">
-                                                                                                                                <span class="fa fa-calendar"></span>
-                                                                                                                            </span>
+                                                                                                                <div class="input-daterange">
+                                                                                                                    <div class="form-group row ">
+                                                                                                                        <label class="col-sm-4 col-form-label">Ticket Date</label>
+                                                                                                                        <div class="col-sm-8">
+                                                                                                                            <div class=" input-group" id="datepicker12">
+                                                                                                                                <input type="text" class="input-sm form-control" name="tkt_date_start" placeholder="" value="<?= $ticket['tkt_date_start']; ?>">
+                                                                                                                                <span class="input-group-addon ">
+                                                                                                                                    <span class="fa fa-calendar"></span>
+                                                                                                                                </span>
+                                                                                                                            </div>
                                                                                                                         </div>
                                                                                                                     </div>
-                                                                                                                </div>
-                                                                                                                <div class="form-group row">
-                                                                                                                    <label class="col-sm-4 col-form-label">End Date</label>
-                                                                                                                    <div class="col-sm-8">
-                                                                                                                        <div class="input-daterange input-group" id="datepicker11">
-                                                                                                                            <input type="text" class="input-sm form-control" name="tkt_date_finish" value="<?= $ticket['tkt_date_start']; ?>">
-                                                                                                                            <span class="input-group-addon ">
-                                                                                                                                <span class="fa fa-calendar"></span>
-                                                                                                                            </span>
+                                                                                                                    <div class="form-group row">
+                                                                                                                        <label class="col-sm-4 col-form-label">End Date</label>
+                                                                                                                        <div class="col-sm-8">
+                                                                                                                            <div class="input-group" id="datepicker11">
+                                                                                                                                <input type="text" class="input-sm form-control" name="tkt_date_finish" value="<?= $ticket['tkt_date_start']; ?>">
+                                                                                                                                <span class="input-group-addon ">
+                                                                                                                                    <span class="fa fa-calendar"></span>
+                                                                                                                                </span>
+                                                                                                                            </div>
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                 </div>
@@ -513,8 +516,8 @@ $prdTerbesar = $huruf . sprintf("%03s", $urutan);
                                                                                                                     <div class="col-sm-8">
                                                                                                                         <select name="tkt_status" class="form-control">
 
-                                                                                                                            <option value="0">Not Active</option>
-                                                                                                                            <option value="1">Active</option>
+                                                                                                                            <option <?php echo ($ticket['tkt_status'] ==  0 ? 'selected' : ''); ?> value="0">Not Active</option>
+                                                                                                                            <option <?php echo ($ticket['tkt_status'] ==  1 ? 'selected' : ''); ?> value="1">Active</option>
                                                                                                                         </select>
                                                                                                                     </div>
                                                                                                                 </div>
@@ -602,7 +605,24 @@ $prdTerbesar = $huruf . sprintf("%03s", $urutan);
     <?php
     include "../bundle_script.php";
     ?>
+    <script type="text/javascript">
 
+        function onChangecurrency($class){
+           let replaces = $('#'+$class).val().replace('Rp. ','').replace('.','');
+            replaces = replaces.replace('.','');
+            replaces = replaces.replace('.','');
+            $('#'+$class).val(accounting.formatMoney(replaces, "Rp. ", 0, ".", ","));
+        }
+
+        $(document).ready(function() {
+            $('.input-daterange').datepicker({
+                startDate: new Date(),
+                format: "dd M yyyy",
+                autoclose: true,
+                todayHighlight: true
+            });
+            onChangecurrency('currency');
+        });
     </script>
 </body>
 

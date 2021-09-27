@@ -1,4 +1,7 @@
 <?php
+$base_http = 'localhost/artik/';
+$root = '/artik/';
+error_reporting(0);
 	
 $konek = mysqli_connect("localhost", "root", "", "prj_artatix");
 	

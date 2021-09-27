@@ -4,7 +4,6 @@ include "koneksi/koneksi.php";
 
 $event_id = $_GET["id"];
 
-
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +83,36 @@ $event_id = $_GET["id"];
                                         INNER JOIN tbl_event ON tbl_event.event_id = tbl_ticket.event_id
                                         WHERE
                                             tbl_event.event_id = '$event_id'");
+
+                    $counter = mysqli_num_rows($queryevent);
+                    if($counter == 0){
+                        $queryevent = mysqli_query($konek, "SELECT
+                                            tbl_event.event_id,
+                                            tbl_event.event_name,
+                                            tbl_event.event_category,
+                                            tbl_event.event_picture,
+                                            tbl_event.event_description,
+                                            tbl_event.event_location,
+                                            tbl_event.event_date_start,
+                                            tbl_event.event_date_finish,
+                                            tbl_event.event_time_start,
+                                            tbl_event.event_time_finish,
+                                            tbl_event.event_sk,
+                                            tbl_event.event_status,
+                                            tbl_event.event_jenis,
+                                            tbl_ticket.tkt_id,
+                                            tbl_ticket.tkt_category,
+                                            tbl_ticket.tkt_stock,
+                                            tbl_ticket.tkt_price,
+                                            tbl_ticket.tkt_date_start,
+                                            tbl_ticket.tkt_desc,
+                                            tbl_ticket.tkt_status
+                                        FROM
+                                            tbl_ticket
+                                        INNER JOIN tbl_event ON tbl_event.event_id = tbl_ticket.event_id
+                                        WHERE
+                                            tbl_event.link = '$event_id'");
+                    }
                     if ($queryevent == false) {
                         die("Terjadi Kesalahan : " . mysqli_error($konek));
                     }

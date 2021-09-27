@@ -7,11 +7,10 @@
 	$tkt_id				= $_POST["tkt_id"];
 	$tkt_category		= $_POST["tkt_category"];
 	$tkt_stock			= $_POST["tkt_stock"];
-	$tkt_price			= $_POST["tkt_price"];
+	$tkt_price			= str_replace('.','',str_replace('Rp. ','',$_POST["tkt_price"]));
 	$tkt_ppn			= $_POST["tkt_ppn"];
 	$event_id			= $_POST["event_id"];
 	$period_id			= $_POST["period_id"];
-
 	if ($add = mysqli_query($konek, "INSERT INTO tbl_ticket ( tkt_id,
 															tkt_category,
 															tkt_item,

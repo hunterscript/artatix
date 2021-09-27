@@ -202,15 +202,23 @@ while ($event_edit = mysqli_fetch_array($queryevent)) {
 
 
 
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Type of Event</label>
-                                                                    <div class="col-sm-10">
-                                                                        <select name="event_jenis" class="form-control">
-                                                                            <option <?php if($event_edit['event_jenis'] == 0) echo 'selected' ?> value="0">Private</option>
-                                                                            <option <?php if($event_edit['event_jenis'] == 1) echo 'selected' ?> value="1">Public</option>
-                                                                        </select>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-2 col-form-label">Type of Event</label>
+                                                                        <div class="col-sm-10">
+                                                                            <select name="event_jenis" class="form-control">
+                                                                                <option <?php if($event_edit['event_jenis'] == 0) echo 'selected' ?> value="0">Private</option>
+                                                                                <option <?php if($event_edit['event_jenis'] == 1) echo 'selected' ?> value="1">Public</option>
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-2 col-form-label">Shorted Link</label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control" name="short_link" value="<?= $event_edit['link'] ?? ''; ?>" placeholder="Example : <?php echo strtolower(str_replace(' ', '-',$event_edit['event_name']))?>">
+                                                                        </div>
+                                                                    </div>
+
 
                                                                     <input type="hidden" class="form-control" value="NOT ACTIVE" name="event_status" readonly>
 

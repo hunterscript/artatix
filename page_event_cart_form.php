@@ -22,9 +22,6 @@ $urutan++;
 $huruf = "CST";
 $cstID = $huruf . sprintf("%03s", $urutan);
 
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -224,9 +221,10 @@ $cstID = $huruf . sprintf("%03s", $urutan);
     <!-- Library Scripts -->
     <?php
     include "bundle_script_enduser.php";
+    if(isset($_GET['error'])){
+        echo '<script> alert("'.$_GET['error'].'")</script>';
+    }
     ?>
-
-
 
     <!--End of Tawk.to Script-->
 </body>

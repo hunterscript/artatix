@@ -183,7 +183,7 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
                                         <div class="page-body">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <form action="event_create_add.php" method="POST" enctype="multipart/form-data">
+                                                    <form action="P" method="POST" enctype="multipart/form-data">
                                                         <!-- Basic Form Inputs card start -->
                                                         <div class="card">
                                                             <div class="card-block">
