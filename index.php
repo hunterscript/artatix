@@ -151,7 +151,7 @@ include "koneksi/koneksi.php";
                 <div class="tab-panels">
                     <section id="marzen" class="tab-panel">
                         <div class="row">
-                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1");
+                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1 AND event_status=1");
                             $norepeat = [];
                             while ($ambilevent = mysqli_fetch_array($result)) {
                                 $event_picture = $ambilevent['event_picture'];
@@ -187,7 +187,7 @@ include "koneksi/koneksi.php";
                     </section>
                     <section id="rauchbier" class="tab-panel">
                         <div class="row">
-                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1 AND event_category='Sport'");
+                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1 AND event_category='Sport' AND event_status=1");
                             $norepeat = [];
                             while ($ambilevent = mysqli_fetch_array($result)) {
                                 $event_picture = $ambilevent['event_picture'];
@@ -222,7 +222,7 @@ include "koneksi/koneksi.php";
                     </section>
                     <section id="dunkles" class="tab-panel">
                         <div class="row">
-                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1 AND event_category='Music'");
+                            <?php $result = mysqli_query($konek, "SELECT*FROM tbl_event INNER JOIN tbl_ticket ON tbl_ticket.event_id=tbl_event.event_id where event_jenis='1' AND tkt_status=1 AND event_category='Music' AND event_status=1");
                             $norepeat = [];
                             while ($ambilevent = mysqli_fetch_array($result)) {
                                 $event_picture = $ambilevent['event_picture'];

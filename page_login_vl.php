@@ -11,6 +11,7 @@ if($_SESSION['user_email_google']){
 	if($dataGoogle) {
 		$_SESSION['user_email'] = $dataGoogle['user_email'];
 		$_SESSION['user_id'] 	= $dataGoogle['user_id'];
+		$_SESSION['users_id'] 	= $dataGoogle['user_id'];
 		
 		$_SESSION['user_level'] = "member";
 		header("location: role_member/index.php?pesan=success");
@@ -29,7 +30,8 @@ if($_SESSION['user_email_google']){
 	
 		if($data['user_level'] == "admin"){
 			$_SESSION['user_email'] = $user_email;
-			$_SESSION['user_id'] 	= $user_id;
+			$_SESSION['user_id'] 	= $data['user_id'];
+			$_SESSION['users_id'] 	= $data['user_id'];
 	
 			$_SESSION['user_level'] = "admin";
 			
@@ -37,7 +39,8 @@ if($_SESSION['user_email_google']){
 	
 		}elseif ($data['user_level'] == "member") {
 			$_SESSION['user_email'] = $user_email;
-			$_SESSION['user_id'] 	= $user_id;
+			$_SESSION['user_id'] 	= $data['user_id'];
+			$_SESSION['users_id'] 	= $data['user_id'];
 			
 			$_SESSION['user_level'] = "member";
 			header("location: role_member/index.php?pesan=success");

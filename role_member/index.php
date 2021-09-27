@@ -208,7 +208,7 @@ error_reporting(0)
                                                                         <div class="col">
                                                                             <p class="m-b-5">Event Aktif</p>
                                                                             <?php
-                                                                            $dtuser_event = mysqli_query($konek, "SELECT*FROM tbl_event WHERE event_status='1' ");
+                                                                            $dtuser_event = mysqli_query($konek, "SELECT * FROM tbl_event LEFT JOIN tbl_user ON tbl_user.user_id=tbl_event.user_id WHERE event_status='1' AND  user_email='$session_useremail'");
                                                                             $count_event = mysqli_num_rows($dtuser_event);
                                                                             ?>
                                                                             <h4 class="m-b-0"><?= $count_event ?></h4>
