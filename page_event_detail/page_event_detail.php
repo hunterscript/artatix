@@ -226,10 +226,41 @@ $event_id = $_GET["id"];
                                         INNER JOIN tbl_event ON tbl_event.event_id = tbl_ticket.event_id
                                         WHERE
                                             tbl_event.event_id = '$event_id'  AND tbl_ticket.tkt_status='1' ");
+                                            $counter = mysqli_num_rows($queryticket);
+                                            if($counter == 0){
+                                                $queryticket = mysqli_query($konek, "SELECT
+                                                tbl_event.event_id,
+                                                tbl_event.event_name,
+                                                tbl_event.event_category,
+                                                tbl_event.event_picture,
+                                                tbl_event.event_description,
+                                                tbl_event.event_location,
+                                                tbl_event.event_date_start,
+                                                tbl_event.event_date_finish,
+                                                tbl_event.event_time_start,
+                                                tbl_event.event_time_finish,
+                                                tbl_event.event_sk,
+                                                tbl_event.event_status,
+                                                tbl_event.event_jenis,
+                                                tbl_ticket.tkt_id,
+                                                tbl_ticket.tkt_category,
+                                                tbl_ticket.tkt_stock,
+                                                tbl_ticket.tkt_price,
+                                                tbl_ticket.tkt_date_start,
+                                                tbl_ticket.tkt_date_finish,
+                                                tbl_ticket.tkt_desc,
+                                                tbl_ticket.tkt_status
+                                            FROM
+                                                tbl_ticket
+                                            INNER JOIN tbl_event ON tbl_event.event_id = tbl_ticket.event_id
+                                            WHERE
+                                                tbl_ticket.tkt_status='1' AND tbl_event.link = '$event_id'");
+                                            }
                                             if ($queryticket == false) {
                                                 die("Terjadi Kesalahan : " . mysqli_error($konek));
                                             }
-                                            while ($ticket = mysqli_fetch_array($queryticket)) { ?>
+                                            while ($ticket = mysqli_fetch_array($queryticket)) { 
+                                                ?>
                                                 <div class="col-12 col-md-6 col-lg-6">
                                                     <form action="page_event_cart_proses.php?id=<?= $kodeCart ?>" method="POST" enctype="multipart/form-data">
                                                         <div class="border radius">
@@ -239,6 +270,10 @@ $event_id = $_GET["id"];
                                                                     <span>QTY : <?= $ticket["tkt_stock"] ?></span><br>
                                                                     <span>Description : <?= $ticket["tkt_desc"] ?></span><br>
                                                                     <p>Sale : <?= $ticket["tkt_date_start"] ?> - <?= $ticket["tkt_date_finish"] ?> </p>
+                                                                    <?php 
+                                                                        if(strtotime($ambilevent['tkt_date_start']) <= $now->getTimestamp() && strtotime($ambilevent['tkt_date_finish']) > $now->getTimestamp())
+                                                                        {
+                                                                     ?>
                                                                     <div class="row">
 
                                                                         <div class="col">
@@ -270,6 +305,7 @@ $event_id = $_GET["id"];
                                                                                 ?>
                                                                             </button>
                                                                         </div>
+                                                                    <?php }?>
                                                     </form>
                                                 </div>
                                         </div>
